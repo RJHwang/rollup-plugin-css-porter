@@ -18,7 +18,7 @@ The output destination is the same dir with `bundle.write()` options.dest
 
 ```js
 import { rollup } from 'rollup';
-import stylus from 'rollup-plugin-css-porter';
+import css from 'rollup-plugin-css-porter';
 
 rollup({
   entry: 'main.js',
@@ -37,7 +37,7 @@ The output destination is the same dir with `bundle.write()` options.dest
 
 ```js
 import { rollup } from 'rollup';
-import stylus from 'rollup-plugin-css-porter';
+import css from 'rollup-plugin-css-porter';
 
 rollup({
   entry: 'main.js',
@@ -55,7 +55,7 @@ Output to a specific path if config the plugin options.dest
 
 ```js
 import { rollup } from 'rollup';
-import stylus from 'rollup-plugin-css-porter';
+import css from 'rollup-plugin-css-porter';
 
 rollup({
   entry: 'main.js',
