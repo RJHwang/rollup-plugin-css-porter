@@ -1,0 +1,12 @@
+.metadata
+.settings
+.classpath
+.project
+.vscode
+.DS_Store
+.idea
+dist
+*.log
+*.iml
+node_modules
+test/temp

@@ -1,0 +1,95 @@
+import test from 'ava'
+import { EOL } from 'os'
+import fsp from 'fs-promise'
+import { rollup } from 'rollup'
+import buble from 'rollup-plugin-buble'
+import css from '../dist/rollup-plugin-css-porter.cjs.js'
+
+process.chdir(__dirname)
+
+function readFile(file) {
+  return fsp.readFile(file, { encoding: 'UTF-8' })
+}
+
+function toPlatformLineBreak(source) {
+  return source.replace(/\n/g, EOL)
+}
+
+test("should save to '.css' and '.min.css' file", async t => {
+  const toDir = 'temp/t1/'
+  await fsp.remove(toDir) // clean
+  const jsFile = toDir + 'main.js'
+  const cssFile = toDir + 'main.css'
+  const minifiedCssFile = toDir + 'main.min.css'
+
+  // clean
+  await fsp.remove(jsFile)
+  await fsp.remove(cssFile)
+  await fsp.remove(minifiedCssFile)
+
+  const bundle = await rollup({
+    entry: 'samples/main1.js',
+    plugins: [css()]
+  })
+
+  await bundle.write({
+    format: 'es',
+    dest: jsFile
+  });
+
+  t.true(await fsp.exists(jsFile))
+  t.true(await fsp.exists(cssFile))
+  let content = await readFile(cssFile)
+  t.is(toPlatformLineBreak('.c1 {\n  padding: 0;\n}'), content)
+
+  t.true(await fsp.exists(minifiedCssFile))
+  content = await readFile(minifiedCssFile)
+  t.is('.c1{padding:0}', content)
+});
+
+test("should only save to '.css' file", async t => {
+  const toDir = 'temp/t2/'
+  await fsp.remove(toDir) // clean
+  const jsFile = toDir + 'main.js'
+  const cssFile = toDir + 'main.css'
+  const minifiedCssFile = toDir + 'main.min.css'
+
+  const bundle = await rollup({
+    entry: 'samples/main1.js',
+    plugins: [css({ minified: false })]
+  })
+
+  await bundle.write({
+    format: 'es',
+    dest: jsFile
+  });
+
+  t.true(await fsp.exists(jsFile))
+  t.true(await fsp.exists(cssFile))
+  let content = await readFile(cssFile)
+  t.is(toPlatformLineBreak('.c1 {\n  padding: 0;\n}'), content)
+
+  t.false(await fsp.exists(minifiedCssFile))
+});
+
+test("should combine two css file and save to '.css' and '.min.css' file", async t => {
+  const toDir = 'temp/t3/'
+  await fsp.remove(toDir) // clean
+  const jsFile = toDir + 'main.js'
+  const cssFile = toDir + 'main.css'
+  const minifiedCssFile = toDir + 'main.min.css'
+
+  const bundle = await rollup({
+    entry: 'samples/main2.js',
+    plugins: [css()]
+  })
+
+  await bundle.write({
+    format: 'es',
+    dest: jsFile
+  });
+
+  t.true(await fsp.exists(cssFile))
+  let content = await readFile(cssFile)
+  t.is(toPlatformLineBreak('.c1 {\n  padding: 0;\n}\n.c2 {\n  margin: 0;\n}'), content)
+});
