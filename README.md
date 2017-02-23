@@ -1,6 +1,6 @@
-# rollup-plugin-css-porter-porter
+# rollup-plugin-css-porter
 
-A rollup plugin to collect and combine all the imported css file. Such as `import myCss from './my.css'`. 
+A rollup plugin to collect and combine all the imported css file. Such as `import './my.css'`. 
 Then output them to a standalone css file. Besides, use [clean-css](https://www.npmjs.com/package/clean-css) 
 to create a minified css file as you wish.
 
