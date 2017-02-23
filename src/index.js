@@ -17,7 +17,7 @@ export default function(options = {}) {
       if (!filter(id)) return
 
       // cache all css code
-      if (!styles.hasOwnProperty(id)) styles[id] = code
+      if (!styles.hasOwnProperty(id) || styles[id] != code) styles[id] = code
       return ''
     },
     onwrite(opts) {
