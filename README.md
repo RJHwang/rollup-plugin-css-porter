@@ -122,7 +122,7 @@ Or:
 ```js
 css({
   raw: false,
-  minified: 'custom.css',
+  minified: 'custom.min.css',
 })
 ```
 
