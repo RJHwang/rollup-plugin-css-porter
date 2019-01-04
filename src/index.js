@@ -8,6 +8,7 @@ const ext = /\.css$/;
 
 export default function(options = {}) {
   if (!options.include) options.include = '**/*.css'
+
   const filter = createFilter(options.include, options.exclude);
   const styles = {}
   return {
@@ -23,31 +24,42 @@ export default function(options = {}) {
     onwrite(opts) {
       if (!Object.keys(styles).length) return // nothing to output
 
+      const outputRaw = options.raw !== false
+      const outputMinified = options.minified !== false
+
+      const customRawName = typeof options.raw === 'string'
+      const customMinifiedName = typeof options.minified === 'string'
+
       // the file of output: use this plugin options.dest or `bundle.write()` options.dest
       let dest = options.dest || opts.dest
-      if (!dest) return // output nothing if no dest config
+      if (!dest && !customRawName && !customMinifiedName) return // output nothing if no dest config
 
       // remove js module extname
-      dest = dest.slice(0, -1 * path.extname(dest).length)
+      if (dest) {
+        dest = dest.slice(0, -1 * path.extname(dest).length)
+      }
 
       // combine all css code
       let cssCode = []
       Object.keys(styles).forEach(key => cssCode.push(styles[key]))
       cssCode = cssCode.join(EOL) // join with platform line break
 
-      // output origin css
-      return fsp.writeFile(dest + '.css', cssCode).then(() => {
-        // default behavior is to create a minified css file
-        if (options.minified === false) return
+      const ops = []
 
-        // minified css code: https://www.npmjs.com/package/clean-css#how-to-make-sure-remote-imports-are-processed-correctly
-        return new Promise(function(resolve, reject) {
-          new CleanCss(options.cleanCSSOptions).minify(cssCode, function(err, m) {
+      if (outputRaw) {
+        ops.push(fsp.writeFile(customRawName ? options.raw : dest + '.css', cssCode))
+      }
+
+      if (outputMinified) {
+        ops.push(new Promise(function(resolve, reject) {
+          new CleanCss(options.cleanCSSOptions).minify(cssCode, (err, m) => {
             if (err) reject(err)
-            else resolve(fsp.writeFile(dest + '.min.css', m.styles)) // output minified css
+            else resolve(fsp.writeFile(customMinifiedName ? options.minified : dest + '.min.css', m.styles)) // output minified css
           })
-        })
-      })
+        }))
+      }
+
+      return Promise.all(ops)
     }
   }
 }
