@@ -29,7 +29,7 @@
     "test": "ava test/index.js",
     "pretest": "npm run build",
     "build": "rollup -c",
-    "prepublish": "npm test"
+    "prepare": "npm test"
   },
   "dependencies": {
     "clean-css": "^4.2.1",
