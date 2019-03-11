@@ -28,7 +28,7 @@
     "clean": "rm -rf dist test/temp",
     "test": "ava test/index.js",
     "pretest": "npm run build",
-    "build": "rollup -c --output.format cjs --output.file dist/rollup-plugin-css-porter.cjs.js && rollup -c --output.format es --output.file dist/rollup-plugin-css-porter.es.js",
+    "build": "rollup -c",
     "prepublish": "npm test"
   },
   "dependencies": {
