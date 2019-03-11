@@ -24,75 +24,75 @@ yarn add rollup-plugin-css-porter --dev
 
 ### Case 1 (default behavior):
 Output to a standalone css file and a minified css file.
-The output destination is the same dir with `bundle.write()` options.dest
+The output destination is the same dir with `bundle.write()` options.file
 
 ```js
 import { rollup } from 'rollup';
 import css from 'rollup-plugin-css-porter';
 
 rollup({
-  entry: 'main.js',
+  input: 'main.js',
   plugins: [ css() ]
 }).then(bundle => {
   bundle.write({
     format: 'es',
-    dest: 'bundle.js'
+    file: 'bundle.js'
   });
 });
 ```
 
 ### Case 2:
 Output to a standalone css file without minified css file.
-The output destination is the same dir with `bundle.write()` options.dest
+The output destination is the same dir with `bundle.write()` options.file
 
 ```js
 import { rollup } from 'rollup';
 import css from 'rollup-plugin-css-porter';
 
 rollup({
-  entry: 'main.js',
+  input: 'main.js',
   plugins: [ css({minified: false}) ]
 }).then(bundle => {
   bundle.write({
     format: 'es',
-    dest: 'bundle.js'
+    file: 'bundle.js'
   });
 });
 ```
 
 ### Case 3:
-Output to a specific path if config the plugin options.dest
+Output to a specific path if config the plugin options.file
 
 ```js
 import { rollup } from 'rollup';
 import css from 'rollup-plugin-css-porter';
 
 rollup({
-  entry: 'main.js',
+  input: 'main.js',
   plugins: [ css({dest: 'path-to-my-dir/bundle.css'}) ]
 }).then(bundle => {
   bundle.write({
     format: 'es',
-    dest: 'bundle.js'
+    file: 'bundle.js'
   });
 });
 ```
 
 ### Case 4:
 Output to a standalone css file with only minified css file.
-The output destination is the same dir with `bundle.write()` options.dest
+The output destination is the same dir with `bundle.write()` options.file
 
 ```js
 import { rollup } from 'rollup';
 import css from 'rollup-plugin-css-porter';
 
 rollup({
-  entry: 'main.js',
+  input: 'main.js',
   plugins: [ css({raw: false}) ]
 }).then(bundle => {
   bundle.write({
     format: 'es',
-    dest: 'bundle.js'
+    file: 'bundle.js'
   });
 });
 ```
@@ -105,7 +105,7 @@ import { rollup } from 'rollup';
 import css from 'rollup-plugin-css-porter';
 
 rollup({
-  entry: 'main.js',
+  input: 'main.js',
   plugins: [ css({
     raw: 'custom.css',
     minified: 'custom.min.css',
@@ -113,7 +113,7 @@ rollup({
 }).then(bundle => {
   bundle.write({
     format: 'es',
-    dest: 'bundle.js'
+    file: 'bundle.js'
   });
 });
 ```
