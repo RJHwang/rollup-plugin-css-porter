@@ -2,7 +2,6 @@ import test from 'ava'
 import { EOL } from 'os'
 import fsp from 'fs-promise'
 import { rollup } from 'rollup'
-import buble from 'rollup-plugin-buble'
 import css from '../dist/rollup-plugin-css-porter.cjs.js'
 
 process.chdir(__dirname)
