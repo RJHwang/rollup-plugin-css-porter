@@ -1,5 +1,12 @@
 # [rollup-plugin-css-porter](https://github.com/RJHwang/rollup-plugin-css-porter) changelog
 
+## 0.3.0 2019-03-12
+
+- Upgrade to rollup-0.68.2
+    > This is the latest supported rollup version on `0.3.x`,
+    > because from rollup-1.0.0+, rollup-plugin api changed.
+    > Supported rollup version from `0.48.0` to `0.68.2`.
+
 ## 0.2.1 2019-03-11
 
 - Upgrade to rollup-0.47.6
