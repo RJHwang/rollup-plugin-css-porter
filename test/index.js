@@ -27,13 +27,13 @@ test("should save to '.css' and '.min.css' file", async t => {
   await fsp.remove(minifiedCssFile)
 
   const bundle = await rollup({
-    entry: 'samples/main1.js',
+    input: 'samples/main1.js',
     plugins: [css()]
   })
 
   await bundle.write({
     format: 'es',
-    dest: jsFile
+    file: jsFile
   });
 
   t.true(await fsp.exists(jsFile))
@@ -54,13 +54,13 @@ test("should only save to '.css' file", async t => {
   const minifiedCssFile = toDir + 'main.min.css'
 
   const bundle = await rollup({
-    entry: 'samples/main1.js',
+    input: 'samples/main1.js',
     plugins: [css({ minified: false })]
   })
 
   await bundle.write({
     format: 'es',
-    dest: jsFile
+    file: jsFile
   });
 
   t.true(await fsp.exists(jsFile))
@@ -79,13 +79,13 @@ test("should only save to '.min.css' file", async t => {
   const minifiedCssFile = toDir + 'main.min.css'
 
   const bundle = await rollup({
-    entry: 'samples/main1.js',
+    input: 'samples/main1.js',
     plugins: [css({ raw: false })]
   })
 
   await bundle.write({
     format: 'es',
-    dest: jsFile
+    file: jsFile
   });
 
   t.true(await fsp.exists(jsFile))
@@ -104,13 +104,13 @@ test("should combine two css file and save to '.css' and '.min.css' file", async
   const minifiedCssFile = toDir + 'main.min.css'
 
   const bundle = await rollup({
-    entry: 'samples/main2.js',
+    input: 'samples/main2.js',
     plugins: [css()]
   })
 
   await bundle.write({
     format: 'es',
-    dest: jsFile
+    file: jsFile
   });
 
   t.true(await fsp.exists(cssFile))
@@ -133,7 +133,7 @@ test("should save to '.css' and '.min.css' file with custom names", async t => {
   await fsp.remove(minifiedCssFile)
 
   const bundle = await rollup({
-    entry: 'samples/main1.js',
+    input: 'samples/main1.js',
     plugins: [css({
       raw: customRawFile,
       minified: customMinifiedFile,
@@ -142,7 +142,7 @@ test("should save to '.css' and '.min.css' file with custom names", async t => {
 
   await bundle.write({
     format: 'es',
-    dest: jsFile
+    file: jsFile
   });
 
   t.true(await fsp.exists(jsFile))

@@ -30,8 +30,9 @@ export default function(options = {}) {
       const customRawName = typeof options.raw === 'string'
       const customMinifiedName = typeof options.minified === 'string'
 
-      // the file of output: use this plugin options.dest or `bundle.write()` options.dest
-      let dest = options.dest || opts.dest
+      // the file of output: use this plugin options.dest or `bundle.write()` options.file
+      // 1. From 0.48.0+, the options param in bundle.write(options), options.dest rename to file
+      let dest = options.dest || opts.file
       if (!dest && !customRawName && !customMinifiedName) return // output nothing if no dest config
 
       // remove js module extname
