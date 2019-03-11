@@ -6,8 +6,18 @@ to create a minified css file as you wish.
 
 ## Installation
 
+Use `npm`:
+
 ```bash
 npm install --save-dev rollup-plugin-css-porter
+// or
+npm i --D rollup-plugin-css-porter
+```
+
+Use `yarn`:
+
+```bash
+yarn add rollup-plugin-css-porter --dev
 ```
 
 ## Usage
@@ -128,11 +138,28 @@ css({
 
 ## Build
 
+Use `npm`:
+
 ```bash
 npm run build
 ```
+
+Use `yarn`:
+
+```bash
+yarn run build
+```
+
 ## Run test
+
+Use `npm`:
 
 ```bash
 npm test
+```
+
+Use `yarn`:
+
+```bash
+yarn test
 ```
