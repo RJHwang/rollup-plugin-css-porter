@@ -1,5 +1,12 @@
 # [rollup-plugin-css-porter](https://github.com/RJHwang/rollup-plugin-css-porter) changelog
 
+## 0.2.1 2019-03-11
+
+- Upgrade to rollup-0.47.6
+    > This is the latest supported rollup version on `0.2.x`,
+    > because from rollup-0.48.0+, the `options` param in `bundle.write(options)`, `options.dest` be renamed to `options.file`.
+    > Note that from rollup-0.38.0, you will see some test log `'Generated an empty bundle'` output to the console.
+
 ## 0.2.0 2019-01-04
 
 - Support minified output only by setting option `raw=false`

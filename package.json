@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-css-porter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "RJ.Hwang <rongjihuang@gmail.com>",
   "description": "A rollup plugin to collect all the imported css file",
   "keywords": [
