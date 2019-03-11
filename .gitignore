@@ -11,3 +11,4 @@ dist
 node_modules
 test/temp
 yarn.lock
+package-lock.json
