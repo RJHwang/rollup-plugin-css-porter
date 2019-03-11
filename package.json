@@ -32,7 +32,7 @@
     "prepublish": "npm test"
   },
   "dependencies": {
-    "clean-css": "^3.4.21",
+    "clean-css": "^4.2.1",
     "fs-promise": "^1.0.0",
     "os": "^0.1.1",
     "path": "^0.12.7",
