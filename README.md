@@ -4,6 +4,14 @@ A rollup plugin to collect and combine all the imported css file. Such as `impor
 Then output them to a standalone css file. Besides, use [clean-css](https://www.npmjs.com/package/clean-css)
 to create a minified css file as you wish.
 
+Supported rollup version :
+
+| this version | rollup version
+|--------------|----------------
+| 0.1.0~0.2.x  | 0.36.0~0.47.6
+| 0.3.x        | 0.48.0~0.68.2
+| 1.x          | 1.0.0+
+
 ## Installation
 
 Use `npm`:
