@@ -2,7 +2,7 @@ import { createFilter } from 'rollup-pluginutils'
 import { EOL } from 'os'
 import path from 'path'
 import fsp from 'fs-promise'
-import CleanCss from 'clean-css'
+import CleanCSS from 'clean-css'
 
 const ext = /\.css$/;
 
@@ -47,17 +47,20 @@ export default function(options = {}) {
 
       const ops = []
 
+      // output raw css to file
       if (outputRaw) {
         ops.push(fsp.writeFile(customRawName ? options.raw : dest + '.css', cssCode))
       }
 
+      // output minified css to file
       if (outputMinified) {
-        ops.push(new Promise(function(resolve, reject) {
-          new CleanCss(options.cleanCSSOptions).minify(cssCode, (err, m) => {
-            if (err) reject(err)
-            else resolve(fsp.writeFile(customMinifiedName ? options.minified : dest + '.min.css', m.styles)) // output minified css
-          })
-        }))
+        ops.push(
+          new CleanCSS(Object.assign({}, options.cleanCSSOptions, { returnPromise: true }))
+            .minify(cssCode)  // do minification
+            .then(output => { // save to file
+              return fsp.writeFile(customMinifiedName ? options.minified : dest + '.min.css', output.styles)
+            })
+        )
       }
 
       return Promise.all(ops)
