@@ -21,7 +21,7 @@ export default function(options = {}) {
       if (!styles.hasOwnProperty(id) || styles[id] != code) styles[id] = code
       return ''
     },
-    onwrite(opts) {
+    generateBundle(opts) {
       if (!Object.keys(styles).length) return // nothing to output
 
       const outputRaw = options.raw !== false
