@@ -1,5 +1,9 @@
 # [rollup-plugin-css-porter](https://github.com/RJHwang/rollup-plugin-css-porter) changelog
 
+## 1.0.1 2019-03-13
+
+- Polishing README - add supported rollup version
+
 ## 1.0.0 2019-03-12
 
 - Upgrade to support rollup-1.x (test pass from rollup 1.0.0 to 1.6.0)
