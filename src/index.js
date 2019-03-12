@@ -1,18 +1,19 @@
 import { createFilter } from 'rollup-pluginutils'
 import { EOL } from 'os'
 import path from 'path'
-import fsp from 'fs-promise'
-import CleanCss from 'clean-css'
+import fse from 'fs-extra'
+import CleanCSS from 'clean-css'
 
 const ext = /\.css$/;
 
-export default function(options = {}) {
+export default function (options = {}) {
   if (!options.include) options.include = '**/*.css'
 
   const filter = createFilter(options.include, options.exclude);
   const styles = {}
   return {
     name: 'rollup-plugin-css-porter',
+    /** See https://rollupjs.org/guide/en#transformers */
     transform(code, id) {
       if (!ext.test(id)) return
       if (!filter(id)) return
@@ -21,7 +22,11 @@ export default function(options = {}) {
       if (!styles.hasOwnProperty(id) || styles[id] != code) styles[id] = code
       return ''
     },
-    onwrite(opts) {
+    /** 
+     * See https://rollupjs.org/guide/en#generatebundle 
+     * 1. From rollup-1.0.0+, use `generateBundle` instead `onwrite`
+     */
+    generateBundle(opts) {
       if (!Object.keys(styles).length) return // nothing to output
 
       const outputRaw = options.raw !== false
@@ -31,7 +36,7 @@ export default function(options = {}) {
       const customMinifiedName = typeof options.minified === 'string'
 
       // the file of output: use this plugin options.dest or `bundle.write()` options.file
-      // 1. From 0.48.0+, the options param in bundle.write(options), options.dest rename to file
+      // 1. From rollup-0.48.0+, the options param in `bundle.write(options)`, `options.dest` rename to `options.file`
       let dest = options.dest || opts.file
       if (!dest && !customRawName && !customMinifiedName) return // output nothing if no dest config
 
@@ -47,17 +52,20 @@ export default function(options = {}) {
 
       const ops = []
 
+      // output raw css to file
       if (outputRaw) {
-        ops.push(fsp.writeFile(customRawName ? options.raw : dest + '.css', cssCode))
+        ops.push(fse.outputFile(customRawName ? options.raw : dest + '.css', cssCode))
       }
 
+      // output minified css to file
       if (outputMinified) {
-        ops.push(new Promise(function(resolve, reject) {
-          new CleanCss(options.cleanCSSOptions).minify(cssCode, (err, m) => {
-            if (err) reject(err)
-            else resolve(fsp.writeFile(customMinifiedName ? options.minified : dest + '.min.css', m.styles)) // output minified css
-          })
-        }))
+        ops.push(
+          new CleanCSS(Object.assign({}, options.cleanCSSOptions, { returnPromise: true }))
+            .minify(cssCode)  // do minification
+            .then(output => { // save to file
+              return fse.outputFile(customMinifiedName ? options.minified : dest + '.min.css', output.styles)
+            })
+        )
       }
 
       return Promise.all(ops)
