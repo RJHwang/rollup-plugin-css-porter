@@ -6,11 +6,11 @@ to create a minified css file as you wish.
 
 Supported rollup version :
 
-| this version | rollup version
-|--------------|----------------
-| 0.1.0~0.2.x  | 0.36.0~0.47.6
-| 0.3.x        | 0.48.0~0.68.2
-| 1.x          | 1.0.0+
+| plugin version | rollup version
+|----------------|----------------
+| 1.x            | 1.0.0+
+| 0.3.x          | 0.48.0~0.68.2
+| 0.1.0~0.2.x    | 0.36.0~0.47.6
 
 ## Installation
 
@@ -19,7 +19,7 @@ Use `npm`:
 ```bash
 npm install --save-dev rollup-plugin-css-porter
 // or
-npm i --D rollup-plugin-css-porter
+npm i -D rollup-plugin-css-porter
 ```
 
 Use `yarn`:
@@ -31,8 +31,9 @@ yarn add rollup-plugin-css-porter --dev
 ## Usage
 
 ### Case 1 (default behavior):
+
 Output to a standalone css file and a minified css file.
-The output destination is the same dir with `bundle.write()` options.file
+The output destination is the same dir of `'bundle.write(options)'` `options.file`.
 
 ```js
 import { rollup } from 'rollup';
@@ -50,8 +51,9 @@ rollup({
 ```
 
 ### Case 2:
+
 Output to a standalone css file without minified css file.
-The output destination is the same dir with `bundle.write()` options.file
+The output destination is the same dir of `'bundle.write(options)'` `options.file`.
 
 ```js
 import { rollup } from 'rollup';
@@ -69,7 +71,8 @@ rollup({
 ```
 
 ### Case 3:
-Output to a specific path if config the plugin options.file
+
+Output to a specific path if config the plugin `options.dest`.
 
 ```js
 import { rollup } from 'rollup';
@@ -87,8 +90,9 @@ rollup({
 ```
 
 ### Case 4:
+
 Output to a standalone css file with only minified css file.
-The output destination is the same dir with `bundle.write()` options.file
+The output destination is the same dir of `'bundle.write(options)'` `options.file`.
 
 ```js
 import { rollup } from 'rollup';
@@ -106,7 +110,8 @@ rollup({
 ```
 
 ### Case 5:
-Custom names:
+
+Custom output filenames by config a string value for plugin `raw` and `minified` option :
 
 ```js
 import { rollup } from 'rollup';
