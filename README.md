@@ -28,6 +28,16 @@ Use `yarn`:
 yarn add rollup-plugin-css-porter --dev
 ```
 
+## Plugin options
+
+| Name     | ValueType         | Required | Description
+|----------|-------------------|----------|-------------
+| dest     | `String`            | false    | Default value is the same dir of `'bundle.write(options)'` `options.file`
+| raw      | `Boolean`<br>`String` | false    | 1. `Boolean` value means whether output a raw css file, default value is `true`<br>2. `String` value means output raw css file to this path
+| minified | `Boolean`<br>`String` | false    | 1. `Boolean` value means whether output a minified css file, default value is `true`<br>2. `String` value means output minified css file to this path
+
+> If set `raw` or `minified` option to a `String` value, `dest` option will be ignored.
+
 ## Usage
 
 ### Case 1 (default behavior):
