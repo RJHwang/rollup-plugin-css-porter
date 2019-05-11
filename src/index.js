@@ -46,9 +46,7 @@ export default function (options = {}) {
       }
 
       // combine all css code
-      let cssCode = []
-      Object.keys(styles).forEach(key => cssCode.push(styles[key]))
-      cssCode = cssCode.join(EOL) // join with platform line break
+      const cssCode = Object.values(styles).join(EOL); // join with platform line break
 
       const ops = []
 
